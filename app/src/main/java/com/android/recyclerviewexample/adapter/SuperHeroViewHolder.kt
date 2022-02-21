@@ -15,7 +15,7 @@ class SuperHeroViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 {
     val binding = ItemSuperheroBinding.bind(view)
 
-    fun render(superHero: SuperHero)
+    fun render(superHero: SuperHero, onClickListener: (SuperHero) -> Unit)
     {
         binding.textViewSuperHeroName.text = superHero.name
         binding.textViewSuperHeroRealName.text = superHero.realName
@@ -23,20 +23,6 @@ class SuperHeroViewHolder(val view: View) : RecyclerView.ViewHolder(view)
         Glide.with(binding.imageViewSuperHero.context).load(superHero.photo)
             .into(binding.imageViewSuperHero)
 
-        binding.imageViewSuperHero.setOnClickListener {
-            Toast.makeText(
-                binding.imageViewSuperHero.context,
-                superHero.realName,
-                Toast.LENGTH_SHORT
-            ).show()
-        }
-
-        itemView.setOnClickListener {
-            Toast.makeText(
-                binding.imageViewSuperHero.context,
-                superHero.name,
-                Toast.LENGTH_SHORT
-            ).show()
-        }
+        itemView.setOnClickListener { onClickListener(superHero) }
     }
 }
